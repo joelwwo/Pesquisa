@@ -19,15 +19,23 @@ class ClientesController extends Controller
     }
 
     public function pesquisar(Request $request){
-        $dados = [];
-        $dados['url'] = url('/pesquisa');
-        /* $dados['cliente'] = $clientes=clientes::where('nome','like', "%$request->nome%")->get(); */
-        $dados['cliente'] = $clientes=clientes::where('nome','like', "%$request->nome%")->first()->get();
-       /*  $clientes=new clientes;
-        $clientes->nome=$request->nome;
-        $clientes->cor="preto";
-        $clientes->save(); */
-        return response()->json($dados);
+        
+        $usuarios = filter_input(INPUT_POST, 'palavra', FILTER_SANITIZE_STRING);
+        /* $result_user = "SELECT * FROM clientes WHERE nome LIKE '%$usuarios%' LIMIT 20"; */
+        /* $resultado_user = $clientes=clientes::where('nome','like', "%$usuarios%")->get(); */
+        $resultado_user = $clientes=clientes::where('nome','like', "%$request->nome%")->get();
+       if(count($resultado_user) != 0)
+       {
+            foreach($resultado_user as $usuario)
+            {
+                echo "<li>".$usuario->nome."</li>";
+            }
+       }
+       else
+       {
+           echo "Nenhum resultado encontrado!!!";
+       }
+        
     }
 
 }
