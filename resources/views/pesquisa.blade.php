@@ -23,38 +23,32 @@
 
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript">    
+
+
     $('#pesquisar').keyup(function(){
-        if($('#pesquisar').val().length>=1)
-        {
-            $('#qtde').html("Pesquisando...");
-
-            $.get("/pesquisar", {pesquisar:$('#pesquisar').val()},function(clientes){
-                $("#qtde").html(clientes.toString());
-            });
-
-            var html="";
-                for (var i=0; i< clientes.length; i++)
-                {
-                    html+="<dir class='row bg-info'>";
-                    html+="<dir class='col'>"+cliente.nome+"</div>";
-                       
-                    html+="'</div>'";
-                }
-
-              if(clientes.length!=0)
-              {
-                  $("#textos").html(html);
-              }
-              else
-              {
-                $("#qtde").html("Nenhum cliente encontrado!");
-                $("#textos").html("");
-              }  
-                
+    if($('#pesquisar').val().length >= 4){
+      $('#qtde').html("Pesquisando...");
+      $.get("{!! url('pesquisar') !!}", {pesquisar:$('#pesquisar').val()},function(data){
+        $('#qtde').html(data.cliente.length.toString()+" Resultados");
+        var html = "";
+        for (var i = 0; i < data.cliente.length; i++) {
+          html += "<div class='panel panel-default'>";
+          html += "<div class='panel-heading'>";
+          html += "<h3 class='panel-title'> "+data.cliente[i].nome+" </h3>";
+          html += "</div>";
+          
+          html += "</div>";
         }
-    });
-    
+        if(data.cliente.length!=0){
+          $("#textos").html(html);
+        }else{
+          $('#qtde').html("Nenhum Texto Foi Encontrado!!!");
+          $("#textos").html("");
+        }
+      });
+    }
+  });
 </script>
 
 @endsection

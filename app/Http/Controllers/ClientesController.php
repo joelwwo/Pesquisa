@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\Http\Requests;
+
 use App\clientes;
 
 class ClientesController extends Controller
@@ -16,12 +19,15 @@ class ClientesController extends Controller
     }
 
     public function pesquisar(Request $request){
-        $clientes=clientes::where('nome','like', "%$request->nome%")->get();
+        $dados = [];
+        $dados['url'] = url('/pesquisa');
+        /* $dados['cliente'] = $clientes=clientes::where('nome','like', "%$request->nome%")->get(); */
+        $dados['cliente'] = $clientes=clientes::where('nome','like', "%$request->nome%")->first()->get();
        /*  $clientes=new clientes;
         $clientes->nome=$request->nome;
         $clientes->cor="preto";
         $clientes->save(); */
-        return view('pesquisa', compact('clientes'));
+        return response()->json($dados);
     }
 
 }
