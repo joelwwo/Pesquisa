@@ -15,9 +15,13 @@ class ClientesController extends Controller
         return view('pesquisa');
     }
 
-    public function pesquisar(){
-        $cliente="EleMesmo";
-        return view('pesquisa', compact('cliente'));
+    public function pesquisar(Request $request){
+        $clientes=clientes::where('nome','like', "%$request->nome%")->get();
+       /*  $clientes=new clientes;
+        $clientes->nome=$request->nome;
+        $clientes->cor="preto";
+        $clientes->save(); */
+        return view('pesquisa', compact('clientes'));
     }
 
 }
