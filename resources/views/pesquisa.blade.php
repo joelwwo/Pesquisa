@@ -16,7 +16,9 @@
     <h4 id="qtde"></h4>
 </div>
 
-<ul class="resultado"></ul>
+<ul class="resultado">
+
+</ul>
 
 @endsection
 

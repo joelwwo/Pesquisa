@@ -13,5 +13,11 @@ $(function(){
             });
             
         }
+        else
+        {
+            $.get('pesquisar', dados, function(retorna){
+                $(".resultado").html(retorna);
+            });
+        }
     });
 });
